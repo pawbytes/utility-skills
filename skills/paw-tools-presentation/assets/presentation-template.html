@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Presentation</title>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <style>
+    /*
+      DESIGN NOTE: This is a structural baseline.
+      Override these values based on content signals:
+      - Brand context
+      - Content type (pitch/report/strategy)
+      - Audience (executive/creative/technical)
+      - Industry signals
+
+      Generate unique visual character for each presentation.
+    */
+    :root {
+      --primary: #1a1a2e;
+      --secondary: #4a4a6a;
+      --accent: #f59e0b;
+      --bg: #ffffff;
+      --bg-alt: #f8f9fa;
+      --text: #1a1a2e;
+      --text-light: #6b7280;
+      --border: #e5e7eb;
+
+      --space-xs: 4px;
+      --space-sm: 8px;
+      --space-md: 16px;
+      --space-lg: 32px;
+      --space-xl: 64px;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+      color: var(--text);
+      background: var(--bg);
+      line-height: 1.6;
+    }
+
+    /* COVER SLIDE */
+    .cover {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      background: var(--primary);
+      color: white;
+      padding: var(--space-xl) var(--space-lg);
+    }
+
+    .cover h1 {
+      font-size: 3rem;
+      font-weight: 700;
+      margin-bottom: var(--space-md);
+      max-width: 800px;
+    }
+
+    .cover .subtitle {
+      font-size: 1.25rem;
+      opacity: 0.9;
+      max-width: 600px;
+    }
+
+    .cover .meta {
+      margin-top: var(--space-xl);
+      font-size: 0.875rem;
+      opacity: 0.7;
+    }
+
+    /* SECTIONS */
+    .container {
+      max-width: 1000px;
+      margin: 0 auto;
+      padding: var(--space-xl) var(--space-lg);
+    }
+
+    section {
+      margin-bottom: var(--space-xl);
+      page-break-inside: avoid;
+    }
+
+    h2 {
+      font-size: 1.75rem;
+      font-weight: 600;
+      color: var(--primary);
+      margin-bottom: var(--space-sm);
+    }
+
+    .key-message {
+      font-size: 1.125rem;
+      color: var(--text-light);
+      margin-bottom: var(--space-lg);
+      padding-left: var(--space-md);
+      border-left: 3px solid var(--accent);
+    }
+
+    ul, ol {
+      margin: var(--space-md) 0;
+      padding-left: var(--space-lg);
+    }
+
+    li {
+      margin-bottom: var(--space-sm);
+    }
+
+    /* CHARTS */
+    .chart-container {
+      margin: var(--space-lg) 0;
+      padding: var(--space-lg);
+      background: var(--bg-alt);
+      border-radius: 8px;
+    }
+
+    .chart-container canvas {
+      max-height: 350px;
+    }
+
+    /* IMAGES */
+    .section-image {
+      width: 100%;
+      max-height: 300px;
+      object-fit: cover;
+      border-radius: 8px;
+      margin: var(--space-lg) 0;
+    }
+
+    /* PDF EXPORT */
+    .pdf-btn {
+      position: fixed;
+      top: var(--space-md);
+      right: var(--space-md);
+      background: var(--primary);
+      color: white;
+      border: none;
+      padding: 12px 24px;
+      border-radius: 8px;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+      z-index: 1000;
+    }
+
+    .pdf-btn:hover {
+      opacity: 0.9;
+    }
+
+    /* PRINT STYLES */
+    @media print {
+      .pdf-btn { display: none; }
+      .cover { page-break-after: always; }
+      section { page-break-inside: avoid; }
+      body { font-size: 11pt; }
+      .container { padding: var(--space-lg) var(--space-md); }
+    }
+
+    /* RESPONSIVE */
+    @media (max-width: 768px) {
+      .container { padding: var(--space-lg) var(--space-md); }
+      .cover h1 { font-size: 2rem; }
+      h2 { font-size: 1.5rem; }
+    }
+  </style>
+</head>
+<body>
+  <button class="pdf-btn" onclick="window.print()">Export PDF</button>
+
+  <!-- COVER SLIDE - Adapt visual treatment based on content type -->
+  <div class="cover">
+    <h1>{title}</h1>
+    <p class="subtitle">{key-message}</p>
+    <p class="meta">{date} | {context}</p>
+  </div>
+
+  <div class="container">
+    <!-- SECTIONS GENERATED HERE -->
+    <!-- Each section should feel designed, not templated -->
+  </div>
+
+  <script>
+    // Chart.js initialization patterns
+    // Style charts to match the derived color palette
+  </script>
+</body>
+</html>
