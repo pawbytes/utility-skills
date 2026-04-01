@@ -1,0 +1,32 @@
+name: Pawbytes Tools
+code: paw
+version: 0.1.0
+description: Productivity utility tools supporting the Pawbytes skills ecosystem — presentation generation, content transformation, and workflow accelerators for marketing and creative suites.
+greeting: "Pawbytes Tools is ready! Run `/paw-tools-presentation` to create McKinsey-style presentations from your marketing content."
+
+config_path: .pawbytes/config
+
+config:
+  - key: presentation_output_folder
+    prompt: "Where should presentations be saved?"
+    default: "{project-root}/.pawbytes/tools-output/presentations"
+
+  - key: communication_language
+    prompt: "Language for skill interaction"
+    default: "English"
+
+  - key: document_output_language
+    prompt: "Language for generated documents"
+    default: "English"
+
+  - key: pexels_api_key
+    prompt: "Pexels API key for stock images (optional, press Enter to skip)"
+    default: ""
+    required: false
+    user_setting: true
+
+  - key: fal_api_key
+    prompt: "fal.ai API key for AI-generated images (optional, press Enter to skip)"
+    default: ""
+    required: false
+    user_setting: true

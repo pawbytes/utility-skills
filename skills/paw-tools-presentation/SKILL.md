@@ -17,14 +17,14 @@ Transforms marketing strategies, plans, and reports into polished HTML presentat
 
 ## On Activation
 
-Load available config from `{project-root}/.pawbytes/marketing-suites/config/config.yaml` and `{project-root}/.pawbytes/marketing-suites/config/config.user.yaml` if present. Extract from the `ams` section:
+Load available config from `{project-root}/.pawbytes/config/config.yaml` and `{project-root}/.pawbytes/config/config.user.yaml`. If config is present, extract:
 
 - `communication_language` (default: English)
 - `document_output_language` (default: English)
 
 Read brand config from `{project-root}/.pawbytes/tools-output/paw-mkt-setup/brand-config.json` if available — use for colors, typography, and brand voice.
 
-**Default output path:** `{project-root}/.pawbytes/tools-output/presentations/`
+**Default output path:** `{project-root}/.pawbytes/tools-output/presentations/` (or `presentation_output_folder` from config)
 
 ## Headless Mode
 
@@ -71,7 +71,7 @@ Load `./references/03-generate.md`
 
 ## Output
 
-**Location:** `{project-root}/.pawbytes/tools-output/presentations/{slugified-title}.html`
+**Location:** `{presentation_output_folder}` or `{project-root}/.pawbytes/tools-output/presentations/{slugified-title}.html`
 
 **Filename convention:** Slugified version of the presentation title.
 
@@ -80,7 +80,7 @@ Load `./references/03-generate.md`
 Two options available:
 
 1. **Pexels API** — Free stock photos. Requires `pexels_api_key` in config.
-2. **Gen AI** — DALL-E or Gemini Imagen. Requires `openai_api_key` or `gemini_api_key` in config.
+2. **fal.ai** — AI-generated images. Requires `fal_api_key` in config.
 
 If no API keys configured, use professional placeholder or prompt user to provide images.
 

@@ -1,0 +1,32 @@
+{
+  "name": "Pawbytes Tools",
+  "code": "paw",
+  "version": "0.1.0",
+  "description": "Productivity utility tools supporting the Pawbytes skills ecosystem — presentation generation, content transformation, and workflow accelerators for marketing and creative suites.",
+  "owner": "pawbytes",
+  "license": "MIT",
+  "homepage": "https://github.com/pawbytes",
+  "repository": "https://github.com/pawbytes/utility-skills",
+  "config_path": ".pawbytes/config",
+  "skills": [
+    {
+      "name": "paw-tools-setup",
+      "path": "skills/paw-tools-setup",
+      "description": "Sets up Pawbytes Tools module in a project"
+    },
+    {
+      "name": "paw-tools-presentation",
+      "path": "skills/paw-tools-presentation",
+      "description": "Transform marketing content into McKinsey-style HTML presentations"
+    }
+  ],
+  "setup_skill": "paw-tools-setup",
+  "capabilities": [
+    {
+      "display_name": "Generate Presentation",
+      "menu_code": "GP",
+      "skill": "paw-tools-presentation",
+      "action": "generate"
+    }
+  ]
+}
