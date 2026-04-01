@@ -1,168 +1,283 @@
-# HTML Layout Patterns
+# Slide Templates Reference
 
-**This is a structural reference, not a strict design template.** Use these patterns for layout structure, but generate the visual design dynamically based on content signals.
+Modular HTML templates for McKinsey-style presentations. Each template is a self-contained slide component with defined placeholders.
 
-## Design is Adaptive
+## Template Location
 
-Each presentation should have unique visual character. Extract design direction from:
-
-- Content type (pitch vs report vs strategy)
-- Audience (executive vs creative vs technical)
-- Brand context (if available)
-- Industry signals
-- Tone of the brief
-
-Do NOT output generic template styling. Design with intention.
-
-## Structural Patterns
-
-### Pattern 1: Cover Slide
-
-Full-viewport hero establishing visual identity.
-
-```html
-<div class="cover">
-  <!-- Optional hero image -->
-  <h1>{title}</h1>
-  <p class="subtitle">{key-message}</p>
-  <p class="meta">{date} | {context}</p>
-</div>
+```
+{skill-dir}/assets/{template_name}/
+├── code.html      # The HTML template
+└── screen.png     # Visual preview
 ```
 
-**Design variations:**
-- Gradient background (corporate/tech)
-- Hero image overlay (consumer/creative)
-- Bold typography focus (minimalist)
-- Asymmetric layout (modern/bold)
+---
 
-### Pattern 2: Section Slide
+## Available Templates
 
-Content sections with clear visual hierarchy.
+### 1. title_slide_template
+**Purpose:** Cover/hero slide establishing visual identity.
 
-```html
-<section>
-  <h2>{section-title}</h2>
-  <p class="key-message">{governing-claim}</p>
-  {content}
-</section>
+**Placeholders:**
+- `[Title Placeholder]` — Main presentation title
+- `[Subtitle Placeholder]` — Supporting tagline or context
+- `[Organization Name]` — Company/brand
+- `[Presenter Name]` — Speaker name
+- `[Date]` — Presentation date
+- `[Confidentiality Marker]` — e.g., "Confidential", "Internal"
+- `[Slide Number]` — Slide index
+
+**When to use:** First slide of any presentation.
+
+---
+
+### 2. agenda_template
+**Purpose:** Table of contents with numbered sections.
+
+**Placeholders:**
+- `Agenda` (fixed title)
+- `[Section Title Placeholder]` (x4) — Section names
+- `[Brief Description Placeholder]` (x4) — Section summaries
+- `[CONFIDENTIALITY MARKER]`
+- `[COMPANY/DEPARTMENT NAME]`
+- `[SLIDE NUMBER]`
+
+**When to use:** After title slide for presentations with 3+ sections.
+
+---
+
+### 3. executive_summary_scr_template
+**Purpose:** SCR (Situation-Complication-Resolution) framework slide.
+
+**Placeholders:**
+- `[EXECUTIVE SUMMARY TITLE]` — Section label
+- `[Lead Message Placeholder]` — High-level synthesis
+- **SITUATION column:**
+  - `[Situation Content]` — Current status quo
+  - `[Supporting detail or key fact 1/2]`
+- **COMPLICATION column:**
+  - `[Complication Content]` — Problem/challenge
+  - `[Critical risk or pain point 1/2]`
+- **RESOLUTION column:**
+  - `[Resolution Content]` — Recommended action
+  - `[Expected outcome or milestone 1/2]`
+- `[SLIDE NUMBER]`
+- `[COMPANY NAME] | [DEPARTMENT OR DIVISION]`
+
+**When to use:** Executive summaries, strategic recommendations, problem-solution framing.
+
+---
+
+### 4. section_divider_template
+**Purpose:** Section break with full-bleed primary background.
+
+**Placeholders:**
+- `[Section Number]` — e.g., "01", "02"
+- `[Section Title Placeholder]` — Section name
+- `[CONFIDENTIALITY MARKER]`
+- `[COMPANY/DEPARTMENT NAME]`
+- `[SLIDE NUMBER]`
+
+**When to use:** Between major sections for visual breathing room.
+
+---
+
+### 5. pyramid_content_template
+**Purpose:** McKinsey Pyramid Principle — lead message with supporting pillars.
+
+**Placeholders:**
+- `[Section Title / Context]` — Contextual label
+- `[Action-Oriented Lead Message]` — The governing thought
+- `[Key Pillar 1/2/3]` — Supporting argument headers
+- `[Supporting Evidence 1/2/3]` — Data/facts for each pillar
+- `[Confidentiality Statement]`
+- `[Slide Number]`
+
+**When to use:** Argument-building slides, recommendations, strategic analysis.
+
+---
+
+### 6. data_visualization_template
+**Purpose:** Data slide with chart area and strategic insights sidebar.
+
+**Placeholders:**
+- `[Chart Title Placeholder]`
+- `[Data Insight Lead Message]`
+- `[Y-Axis Label]`
+- `[X-Axis Label]` (x5) — Including projections marked `(P)`
+- `[Metric]` — Highlighted value
+- `[Strategic Insights]` (section header)
+- `[Insight Heading]` (x3)
+- `[Strategic Takeaway Placeholder]` (x3)
+- `[Benchmark Title]`, `[Value]`, `[Secondary Metric Placeholder]`
+- `[Source: Placeholder]`
+- `[Slide Number]`
+
+**When to use:** Quantitative analysis, performance metrics, market data.
+
+---
+
+### 7. 2x2_matrix_template
+**Purpose:** Strategic quadrant analysis (e.g., priority matrix, BCG matrix).
+
+**Placeholders:**
+- `[Contextual Framework Description]` — Framework explanation
+- `[Axis Label Placeholder: Vertical Axis]` — Y-axis name
+- `[Axis Label Placeholder: Horizontal Axis]` — X-axis name
+- `[Quadrant Label Placeholder]` (x4)
+- `[Analysis summary for quadrant]` (x4)
+- `[CONFIDENTIALITY MARKER]`
+- `[COMPANY/DEPARTMENT NAME]`
+
+**When to use:** Prioritization, portfolio analysis, strategic positioning.
+
+---
+
+### 8. team_contact_template
+**Purpose:** Team introduction and contact information.
+
+**Placeholders:**
+- `Team & Contact` (fixed title)
+- `[Name Placeholder]` (x3)
+- `[Role Placeholder]` (x3)
+- `[Email/Contact Placeholder]` (x3)
+- `[Office Address Placeholder]`
+- `[City, State, Zip]`
+- `[Website Placeholder]`
+- `[CONFIDENTIALITY MARKER]`
+- `[COMPANY/DEPARTMENT NAME]`
+- `[SLIDE NUMBER]`
+
+**When to use:** Closing slides, proposal team introductions.
+
+---
+
+## Design System: "The Architectural Brief"
+
+See `assets/kinetic_insight_colour_template/DESIGN.md` for full specification.
+
+### Core Principles
+
+1. **Intentional Asymmetry:** Break expected grids with wide logic margins.
+2. **Typographic Gravity:** Extreme scale shifts signal importance.
+3. **Tonal Layering:** Depth through color shifts, not shadows.
+
+### Color Palette
+
+| Token | Hex | Usage |
+|-------|-----|-------|
+| `primary` | #001e40 | Headlines, emphasis, dark backgrounds |
+| `primary-container` | #003366 | Secondary emphasis, CTAs |
+| `surface` | #f8f9fa | Main canvas |
+| `surface-container-lowest` | #ffffff | Cards, active content |
+| `surface-container-low` | #f3f4f5 | Sectioning |
+| `on-primary` | #ffffff | Text on primary bg |
+| `on-surface` | #191c1d | Primary text |
+
+### Typography
+
+| Font | Role | Weights |
+|------|------|---------|
+| **Manrope** | Headlines | 700, 800 |
+| **Public Sans** | Body | 300, 400, 600 |
+| **Inter** | Labels | 400, 500, 700 |
+
+### Key Rules
+
+- **No rounded corners:** `border-radius: 0px`
+- **No 1px borders:** Use tonal shifts or ghost borders (<20% opacity)
+- **No pure black:** Use `on-surface` (#191c1d) instead of #000000
+- **No drop shadows:** Use surface layering for depth
+
+---
+
+## Template Usage in Generation
+
+### Loading Templates
+
+Read template HTML from:
+```
+{skill-dir}/assets/{template_name}/code.html
 ```
 
-**Design variations:**
-- Left-aligned, generous whitespace (executive)
-- Centered, large type (impact-focused)
-- Two-column grid (data-rich)
-- Card-based layout (scannable)
+### Placeholder Replacement
 
-### Pattern 3: Data Slide
+Replace all `[Placeholder Name]` tokens with actual content. Placeholders are:
+- Always wrapped in square brackets
+- Case-sensitive
+- May appear multiple times (replace all instances)
 
-Charts with contextual framing.
+### Slide Composition Workflow
 
-```html
-<section>
-  <h2>{title}</h2>
-  <p class="insight">{what-this-data-means}</p>
-  <div class="chart-container">
-    <canvas id="chart-{id}"></canvas>
-  </div>
-</section>
-```
+1. **Determine slide type** based on content structure
+2. **Select appropriate template** from available options
+3. **Load template HTML** from assets
+4. **Replace placeholders** with presentation content
+5. **Inject Chart.js** if data visualization required (see below)
+6. **Wrap in presentation shell** with PDF export button
 
-**Design variations:**
-- Large single chart (focal point)
-- Multi-chart grid (comparison)
-- Chart + callout sidebar (narrative)
+---
 
-### Pattern 4: Closing Slide
+## Adding New Templates
 
-Next steps and call to action.
+To add a new template:
 
-```html
-<section class="closing">
-  <h2>Next Steps</h2>
-  {actions}
-</section>
-```
+1. Create folder: `assets/{template_name}/`
+2. Add `code.html` with placeholder tokens in `[brackets]`
+3. Add `screen.png` preview
+4. Document in this file under "Available Templates"
 
-## CSS Architecture
+### Template HTML Requirements
 
-Use CSS custom properties for theming:
+- 16:9 aspect ratio container
+- Self-contained styles (Tailwind via CDN + inline CSS)
+- Google Fonts loaded in `<head>`
+- Material Symbols for icons (if needed)
+- All dynamic content as `[Placeholder]` tokens
 
-```css
-:root {
-  /* Derive these from content/brand signals */
-  --primary: {adaptive};
-  --secondary: {adaptive};
-  --accent: {adaptive};
-  --bg: {adaptive};
-  --text: {adaptive};
-  
-  /* Spacing rhythm */
-  --space-xs: 4px;
-  --space-sm: 8px;
-  --space-md: 16px;
-  --space-lg: 32px;
-  --space-xl: 64px;
-}
-```
+---
 
-## Required Technical Elements
+## Chart.js Integration
 
-These are non-negotiable for functionality:
+For `data_visualization_template`, inject Chart.js:
 
 ```html
-<!-- Chart.js CDN -->
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+  new Chart(document.getElementById('chart-{id}'), {
+    type: 'bar', // or 'line', 'pie', 'doughnut'
+    data: { /* chart data */ },
+    options: { /* chart options */ }
+  });
+</script>
+```
 
-<!-- PDF Export Button -->
+---
+
+## PDF Export
+
+All presentations must include:
+
+```html
 <button class="pdf-btn" onclick="window.print()">Export PDF</button>
-
-<!-- Print Styles -->
 <style>
 @media print {
   .pdf-btn { display: none; }
-  .cover { page-break-after: always; }
-  section { page-break-inside: avoid; }
+  .slide-container { page-break-after: always; }
 }
 </style>
 ```
 
-## Typography Approaches
+---
 
-Choose based on content signals:
+## Template Selection Guide
 
-| Style | When | Implementation |
-|-------|------|----------------|
-| **System** | Corporate, safe | `-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto` |
-| **Modern** | Tech, startup | Add `'Inter', 'DM Sans'` via Google Fonts |
-| **Editorial** | Consumer, lifestyle | Add `'Playfair Display', 'Merriweather'` for headlines |
-| **Technical** | Data-heavy | `'JetBrains Mono', 'IBM Plex Sans'` for charts |
-
-## Color Palette Strategies
-
-| Palette | Signals | Colors |
-|---------|---------|--------|
-| **Executive** | Corporate, finance | Navy primary, gold accent, white/light gray |
-| **Tech** | SaaS, startup | Deep blue or purple, cyan accent, dark mode capable |
-| **Creative** | Agency, consumer | Bold primary, contrasting accent, vibrant |
-| **Minimal** | Luxury, editorial | Black/white/gray, single accent |
-| **Friendly** | Consumer brand | Warm colors, approachable, soft shadows |
-
-## Responsive Base
-
-```css
-@media (max-width: 768px) {
-  .container { padding: 40px 20px; }
-  .cover h1 { font-size: 2rem; }
-  h2 { font-size: 1.5rem; }
-}
-```
-
-## The Test
-
-Before finalizing, ask:
-
-- Does this look like a unique presentation or a generic template?
-- Does the design match the content's tone and audience?
-- Would a human designer make similar choices?
-
-If the answer is "generic template," regenerate with stronger design intent.
+| Content Type | Recommended Template |
+|--------------|---------------------|
+| Cover/Opening | `title_slide_template` |
+| Contents/Overview | `agenda_template` |
+| Executive Summary | `executive_summary_scr_template` |
+| Section Break | `section_divider_template` |
+| Argument/Recommendation | `pyramid_content_template` |
+| Data/Charts | `data_visualization_template` |
+| Analysis Matrix | `2x2_matrix_template` |
+| Team/Contact | `team_contact_template` |

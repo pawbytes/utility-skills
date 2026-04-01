@@ -1,6 +1,6 @@
 # Stage 3: Generate
 
-**Goal:** Produce a complete, self-contained HTML presentation file with adaptive design.
+**Goal:** Produce a complete, self-contained HTML presentation using modular slide templates.
 
 ## Output Location
 
@@ -10,116 +10,171 @@ Sanitize title: lowercase, spaces to hyphens, remove special characters.
 
 Create the output directory if it doesn't exist.
 
-## Design Philosophy
+## Template-Based Generation
 
-**The template is a structural guide, not a rigid design.** Each presentation should have unique visual character informed by:
+Presentations are built by composing modular HTML templates from `assets/`. Each slide uses a template matched to its content type.
 
-- **Content type** — Strategy deck, client pitch, board update, internal review — each has different tonal needs
-- **Brand context** — Use brand colors, typography, and visual language if available
-- **User brief** — Extract design preferences from the content itself (formal vs bold, minimalist vs data-rich)
-- **Industry signals** — Tech, finance, consumer goods — adapt visual language accordingly
+### Template Selection
 
-The HTML template provides layout patterns and structural elements. You determine the actual design — typography, color palette, spacing rhythm, visual hierarchy, and overall aesthetic.
+| Slide Type | Template |
+|------------|----------|
+| Cover/Opening | `title_slide_template` |
+| Contents/Overview | `agenda_template` |
+| Executive Summary (SCR) | `executive_summary_scr_template` |
+| Section Break | `section_divider_template` |
+| Argument/Recommendation | `pyramid_content_template` |
+| Data/Charts | `data_visualization_template` |
+| Strategic Matrix | `2x2_matrix_template` |
+| Team/Contact | `team_contact_template` |
 
-## HTML Requirements
+### Generation Workflow
 
-The generated file must be:
-- **Self-contained** — all CSS inline, Chart.js from CDN, no external file dependencies except images
-- **Print-ready** — `@media print` styles for clean PDF export
-- **Responsive** — readable on desktop and tablet
-- **Visually polished** — not generic template output
+1. **Map outline sections to templates** — Match each slide to appropriate template
+2. **Load template HTML** — Read from `assets/{template_name}/code.html`
+3. **Replace placeholders** — All `[Placeholder Name]` tokens with actual content
+4. **Inject Chart.js** — For data slides, add chart configurations
+5. **Compose into single HTML** — Wrap all slides in presentation shell
+6. **Add PDF export** — Include print button and styles
 
-## Design Extraction from Content
+## Design System
 
-Before writing HTML, analyze the input for design signals:
+All templates follow "The Architectural Brief" design system. See:
+- `assets/kinetic_insight_colour_template/DESIGN.md` — Full specification
 
-| Signal | Design Implication |
-|--------|-------------------|
-| Executive audience | Clean, minimal, high contrast, large type |
-| Creative agency | Bold colors, asymmetric layouts, distinctive typography |
-| Technical content | More charts, dense information, structured grids |
-| Consumer brand | Vibrant, friendly, approachable typography |
-| Financial/Corporate | Professional navy/gray, conservative typography, clear data |
-| Startup/Pitch | Modern, confident, gradient accents, strong headlines |
-| Internal review | Functional, scannable, minimal decoration |
+### Core Principles Applied During Generation
 
-Apply these signals to:
-- **Color palette** — Primary, secondary, accent colors
-- **Typography** — Font choices (via system fonts or Google Fonts CDN)
-- **Spacing** — Tight/dense vs generous/airy
-- **Visual weight** — Minimal vs bold graphic elements
-- **Chart styling** — Subtle fills vs bold colors
+- **Tonal layering:** Depth through color shifts, not shadows
+- **Intentional asymmetry:** Content breathes with generous margins
+- **Typographic gravity:** Scale shifts signal importance
+- **No borders:** Use surface color shifts for separation
 
-## Layout Patterns
+### Brand Override
 
-The template provides these structural patterns — adapt the visual treatment:
+If `{project-root}/.pawbytes/tools-output/paw-mkt-setup/brand-config.json` exists:
 
-1. **Cover slide** — Full-viewport hero with title and subtitle
-2. **Section slides** — Title + key message + supporting content
-3. **Data slides** — Charts with contextual framing
-4. **Closing slide** — Next steps / call to action
+1. Read brand colors, typography, voice
+2. Replace template color tokens with brand palette
+3. Swap fonts if brand specifies alternatives
+4. Maintain template structure — only override visual tokens
 
-Use CSS custom properties for theming:
-```css
-:root {
-  --primary: /* derived from brand or content signals */;
-  --secondary: /* complementary tone */;
-  --accent: /* highlight color */;
-  --bg: /* background */;
-  --text: /* primary text */;
-}
+## Placeholder Replacement
+
+Templates contain `[Placeholder Name]` tokens. Replace all instances:
+
+```
+[Title Placeholder] → "Q4 Strategic Review"
+[Section Title Placeholder] → "Market Analysis"
+[Supporting Evidence 1] → "Revenue grew 23% YoY"
 ```
 
-## Chart Generation
+**Rules:**
+- Replace ALL occurrences of each placeholder
+- Placeholders are case-sensitive
+- Remove any unused optional placeholders (e.g., extra agenda items)
 
-For each `[Chart: type — what it shows]` flag:
+## Chart.js Integration
 
-1. Extract the relevant data from the input material
-2. Generate Chart.js configuration inline
-3. Style charts to match the overall design palette
-4. Supported types: `bar`, `line`, `pie`, `doughnut`, `horizontal-bar`, `scatter`
+For `data_visualization_template`, inject charts after HTML composition:
 
-Chart.js loads from CDN: `https://cdn.jsdelivr.net/npm/chart.js`
+```html
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+  // One chart config per chart placeholder
+  new Chart(document.getElementById('chart-1'), {
+    type: 'bar',
+    data: {
+      labels: ['Q1', 'Q2', 'Q3', 'Q4'],
+      datasets: [{
+        label: 'Revenue',
+        data: [120, 145, 162, 198],
+        backgroundColor: '#001e40'
+      }]
+    },
+    options: {
+      responsive: true,
+      plugins: { legend: { display: false } }
+    }
+  });
+</script>
+```
 
-See `./references/chart-patterns.md` for implementation examples.
+See `./references/chart-patterns.md` for more patterns.
 
-## Image Generation
+## Image Handling
 
-Based on `{image_source}` from Stage 2:
+### From Templates
 
-### Gen AI (DALL-E or Gemini Imagen)
+Some templates include placeholder image URLs (e.g., `team_contact_template`). Replace with:
+- Actual team photos if available
+- Generated images via Pexels/fal.ai APIs
+- Or remove image elements if not needed
 
-For each `[Image: cover]` or `[Image: section-header]`:
+### Hero Images
 
-1. Write a prompt based on section context and design direction
-2. Style should complement the visual language (not generic stock photo look)
-3. Use configured API
+For title slide backgrounds or section headers:
 
-### Pexels (Stock Photos)
+1. **Pexels API** — Search based on content theme, requires `pexels_api_key`
+2. **fal.ai** — AI-generated images, requires `fal_api_key`
+3. **Skip** — Use solid color/gradient background from design system
 
-1. Construct a search query from section context
-2. Select images that match the design aesthetic
-3. Call Pexels API via `pexels_api_key`
+## Presentation Shell
 
-### Skip Images
+Wrap all slides in a container with navigation and PDF export:
 
-Generate text-only presentation with designed section headers — no placeholders needed.
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{presentation-title}</title>
+  <!-- Fonts & Tailwind from templates -->
+</head>
+<body>
+  <div class="presentation-container">
+    <!-- Slide 1 -->
+    <!-- Slide 2 -->
+    <!-- ... -->
+  </div>
+  
+  <button class="pdf-btn" onclick="window.print()">Export PDF</button>
+  
+  <style>
+  @media print {
+    .pdf-btn { display: none; }
+    .slide-container { page-break-after: always; }
+  }
+  </style>
+</body>
+</html>
+```
 
 ## Output Validation
 
 Before writing, verify:
-- [ ] Design reflects content type and audience
-- [ ] All sections from outline are present
-- [ ] Charts render with appropriate styling
-- [ ] PDF export button works
+
+- [ ] All outline sections have corresponding slides
+- [ ] All placeholders replaced (no `[` brackets remaining)
+- [ ] Charts render correctly with data
+- [ ] PDF export button functions
 - [ ] Print styles produce clean output
-- [ ] No generic/template feel — design feels intentional
+- [ ] Slide order matches outline structure
 
 ## Completion
 
 Display:
+
 > "Presentation generated: `{output-path}`"
 
 If headless: return only the output path.
 
-If images were skipped due to missing API keys: note this briefly.
+Note any skipped elements (e.g., "Images skipped — no API key configured").
+
+## Adding New Templates
+
+When new templates are added to `assets/`:
+
+1. Document in `./references/html-template.md` under "Available Templates"
+2. Add to template selection guide above
+3. Define placeholder mapping rules
+4. Update this file's template selection table
