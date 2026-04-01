@@ -87,6 +87,28 @@ EOF
 gh release view v{new_version}
 ```
 
+### Get Draft URL
+
+Extract and display the draft release URL:
+
+```bash
+gh release view v{new_version} --json url --jq .url
+```
+
+Present the URL prominently so the user can review:
+
+```
+📝 Draft Release Ready for Review
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+{draft_url}
+
+Open this URL to review before publishing.
+```
+
+Interactive: Pause and ask if the user wants to open the URL in browser.
+Headless: Continue without prompt.
+
 ## Completion
 
 Report success:
@@ -97,7 +119,7 @@ Report success:
   • Version files updated
   • Changelog appended
   • Tag pushed to origin
-  • Draft release: https://github.com/{owner}/{repo}/releases/tag/v{new_version}
+  • Draft ready for review
 
 To publish: gh release edit v{new_version} --draft=false
 ```
