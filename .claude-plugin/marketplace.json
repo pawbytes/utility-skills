@@ -5,19 +5,20 @@
     "url": "https://github.com/pawbytes/utility-skills"
   },
   "metadata": {
-    "description": "Productivity utility tools supporting the Pawbytes skills ecosystem — presentation generation, content transformation, and workflow accelerators for marketing and creative suites",
+    "description": "Productivity utility tools supporting the Pawbytes skills ecosystem — presentation generation, release automation, content transformation, and workflow accelerators for marketing and creative suites",
     "version": "0.1.0",
     "repository": "https://github.com/pawbytes/utility-skills"
   },
   "plugins": [
     {
       "name": "paw-tools",
-      "description": "Productivity utilities: presentation generation (McKinsey-style HTML), content transformation, and workflow accelerators for marketing and creative teams",
+      "description": "Productivity utilities: presentation generation (McKinsey-style HTML), release automation, content transformation, and workflow accelerators for marketing and creative teams",
       "source": "./",
       "strict": false,
       "skills": [
         "./skills/paw-tools-setup",
-        "./skills/paw-tools-presentation"
+        "./skills/paw-tools-presentation",
+        "./skills/paw-tools-release"
       ]
     }
   ]
